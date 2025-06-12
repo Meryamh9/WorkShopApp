@@ -1,0 +1,9 @@
+# Angular
+/app/node_modules
+/app/dist
+
+# Express
+/backend/node_modules
+
+# Environment files
+*.env
