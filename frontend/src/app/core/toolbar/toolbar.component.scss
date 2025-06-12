@@ -1,0 +1,19 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar {
+  background-color: #FCFBFF; /* gris clair */
+  color: #000; /* texte noir */
+  font-family: 'Poppins', sans-serif;
+}
+
+mat-toolbar button {
+  color: #000; /* couleur du texte initial */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+mat-toolbar button:hover {
+  background-color: #8EC899; /* vert personnalisé */
+  color: white; /* texte blanc sur fond vert */
+}

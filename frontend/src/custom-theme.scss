@@ -1,0 +1,60 @@
+@use '@angular/material' as mat;
+@use 'sass:map';
+
+
+// Palette primaire personnalisée (vert doux)
+$my-primary: mat.define-palette((
+  50 : #f0f9f4,
+  100: #d9f1e2,
+  200: #c1e9cf,
+  300: #a9e1bd,
+  400: #96d8b0,
+  500: #8EC899, // couleur principale
+  600: #7db087,
+  700: #6d9976,
+  800: #5c8264,
+  900: #46624b,
+  contrast: (
+    500: black,
+    700: white,
+    900: white,
+  )
+));
+
+// Palette accent personnalisée (blanc doux)
+$my-accent: mat.define-palette((
+  100: #fdfcff,
+  200: #fcfbffdc,
+  400: #fcfbffdc,
+  500: #fcfbffdc,
+  contrast: (
+    500: black
+  )
+), 500);
+
+// Warn : noir
+$my-warn: mat.define-palette((
+  500: #000000,
+  contrast: (
+    500: white
+  )
+));
+
+// Créer le thème
+$my-theme: mat.define-light-theme((
+  color: (
+    primary: $my-primary,
+    accent: $my-accent,
+    warn: $my-warn,
+  ),
+  typography: mat.define-typography-config((
+    font-family: 'Poppins, sans-serif',
+  )),
+));
+
+// Appliquer le thème avec variables CSS
+@include mat.core();
+@include mat.all-component-colors($my-theme);
+@include mat.all-component-typographies($my-theme);
+@include mat.all-component-densities($my-theme);
+@include mat.color-variables($my-theme); // ⚠️ essentiel pour accéder aux couleurs en CSS
