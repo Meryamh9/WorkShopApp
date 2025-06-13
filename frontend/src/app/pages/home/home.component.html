@@ -1,12 +1,21 @@
-<!-- home.component.html -->
-<section class="hero-banner">
-  <div class="content">
-    <h1 class="slogan">Donnez vie à vos idées digitales</h1>
-    <p class="subtitle">Des solutions modernes, performantes et adaptées à votre besoin</p>
-    <button mat-button class="cta" >Découvrir</button>
-  </div>
-  <div class="image">
-    <img src="assets/illustration.svg" alt="Illustration" />
+<section id="home" class="py-44 text-center" style="background-color: #e5f3e1;">
+  <h1 class="text-4xl md:text-5xl font-bold text-[#275d3c] leading-tight">
+    Solutions pour<br>les entreprises
+  </h1>
+  <p class="mt-6 text-lg text-gray-700 max-w-2xl mx-auto">
+    Optimisez vos processus et faites croître votre entreprise<br>
+    avec nos solutions innovantes et personnalisées.
+  </p>
+
+  <div class="mt-8 flex justify-center gap-4 flex-wrap">
+    <button class="bg-[#275d3c] text-white px-6 py-3 rounded font-semibold hover:bg-[#14532d] transition">
+      Démarrer
+    </button>
+    <button class="border-2 border-[#275d3c] text-[#275d3c] px-6 py-3 rounded font-semibold hover:bg-[#275d3c]/10 transition">
+      En savoir plus
+    </button>
   </div>
 </section>
 
+<app-a-propos></app-a-propos>
+<app-services></app-services>

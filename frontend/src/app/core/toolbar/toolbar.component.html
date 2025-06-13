@@ -1,22 +1,25 @@
-<mat-toolbar>
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with menu icon"
-  ></button>
-  <strong> <span>Formitudo</span> </strong>
-  <span class="example-spacer"></span>
+<mat-toolbar class="bg-white shadow-sm px-4 py-2">
+  <span class="text-[#275d3c] font-bold text-xl">Formitudo</span>
 
-  <button mat-button routerLink="/home" aria-label="Accueil">
-    <mat-icon>home</mat-icon> Accueil
+  <span class="flex-1"></span>
+
+<button mat-button (click)="scrollTo('home')"
+  class="bg-[#275d3c] text-white px-6 py-3 rounded font-semibold hover:bg-[#275d3c] hover:!text-white transition">
+  <mat-icon class="text-inherit">home</mat-icon> Accueil
+</button>
+
+  <button mat-button (click)="scrollTo('a-propos')"
+    class="bg-[#275d3c] text-white px-6 py-3 rounded font-semibold hover:bg-[#275d3c] hover:!text-white transition">
+    <mat-icon class="text-inherit">info</mat-icon> À propos
   </button>
-  <button mat-button routerLink="/a-propos" aria-label="À propos">
-    <mat-icon>info</mat-icon> À propos
+
+  <button mat-button (click)="scrollTo('services')"
+    class="bg-[#275d3c] text-white px-6 py-3 rounded font-semibold hover:bg-[#275d3c] hover:!text-white transition">
+    <mat-icon class="text-inherit">build</mat-icon> Services
   </button>
-  <button mat-button routerLink="/services" aria-label="Services">
-    <mat-icon>build</mat-icon> Services
-  </button>
-  <button mat-button routerLink="/contact" aria-label="Contact">
-    <mat-icon>mail</mat-icon> Contact
+
+  <button mat-button (click)="scrollTo('contact')"
+    class="bg-[#275d3c] text-white px-6 py-3 rounded font-semibold hover:bg-[#275d3c] hover:!text-white transition">
+    <mat-icon class="text-inherit">mail</mat-icon> Contact
   </button>
 </mat-toolbar>
