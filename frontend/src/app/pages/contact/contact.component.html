@@ -1,10 +1,15 @@
-<section id="contact" class="py-20 bg-white text-center" style="background-color: #f6fcf2">
-  <h2 class="text-3xl font-bold text-[#1a4732] mb-6">Contactez-nous</h2>
-
+<section id="contact" class="py-24 bg-[#f6fcf2] text-center overflow-hidden">
+  <div class="text-center mb-12">
+    <h1 class="text-4xl md:text-5xl font-bold leading-tight animate-fadeInUp delay-200">
+      Contactez-nous
+    </h1>
+    <p class="text-gray-600 text-lg mb-10">Nous serions ravis d'échanger avec vous.</p>
+  </div>
   <form
     [formGroup]="contactForm"
     (ngSubmit)="onSubmit()"
-    class="max-w-xl mx-auto text-left space-y-6"
+    class="max-w-2xl mx-auto text-left space-y-6 bg-white rounded-xl shadow-lg p-8 animate-fadeInUp"
+    style="animation-delay: 0.3s; animation-fill-mode: forwards"
   >
     <!-- Nom -->
     <mat-form-field appearance="fill" class="w-full">
@@ -34,8 +39,16 @@
     </mat-form-field>
 
     <!-- Bouton -->
-    <button mat-raised-button color="primary" type="submit" [disabled]="contactForm.invalid">
-      Envoyer
-    </button>
+    <div class="text-center">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="contactForm.invalid"
+        class="transition-transform transform hover:scale-105"
+      >
+        Envoyer
+      </button>
+    </div>
   </form>
 </section>

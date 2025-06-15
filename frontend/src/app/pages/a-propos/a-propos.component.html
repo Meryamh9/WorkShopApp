@@ -1,11 +1,17 @@
 <section
   id="a-propos"
-  class="py-44 bg-white flex flex-col md:flex-row items-center justify-center gap-8 px-6"
-  style="background-color: #f6fcf2;"
+  class="py-44 bg-[#f6fcf2] flex flex-col md:flex-row items-center justify-center gap-8 px-6 overflow-hidden"
 >
   <!-- Texte -->
-  <div class="max-w-md text-center md:text-left">
-    <h2 class="text-3xl font-bold mb-4">À propos</h2>
+  <div
+    class="max-w-md text-center md:text-left opacity-0 animate-fadeInUp"
+    style="animation-delay: 0.2s; animation-fill-mode: forwards"
+  >
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold leading-tight animate-fadeInUp delay-200">
+        À propos
+      </h1>
+    </div>
     <p class="text-gray-700 text-lg leading-relaxed">
       Chez <strong>Formitudo</strong>, nous aidons les entreprises à atteindre leur plein potentiel
       grâce à des solutions numériques sur mesure. Notre équipe d'experts combine technologie,
@@ -17,9 +23,15 @@
     </p>
   </div>
 
-  <!-- Image ou illustration -->
-  <div class=" rounded shadow-md">
-    <!-- Remplacer par une image réelle plus tard -->
-    <img src="assets/images/apropos.jpg" alt="..." class="a-propos-img" />
+  <!-- Image -->
+  <div
+    class="rounded shadow-md opacity-0 animate-fadeInRight"
+    style="animation-delay: 0.4s; animation-fill-mode: forwards"
+  >
+    <img
+      src="assets/images/apropos.jpg"
+      alt="À propos"
+      class="a-propos-img w-80 h-auto object-cover rounded"
+    />
   </div>
 </section>
