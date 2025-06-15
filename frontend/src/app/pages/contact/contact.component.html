@@ -1,1 +1,41 @@
-<p>contact works!</p>
+<section id="contact" class="py-20 bg-white text-center" style="background-color: #f6fcf2">
+  <h2 class="text-3xl font-bold text-[#1a4732] mb-6">Contactez-nous</h2>
+
+  <form
+    [formGroup]="contactForm"
+    (ngSubmit)="onSubmit()"
+    class="max-w-xl mx-auto text-left space-y-6"
+  >
+    <!-- Nom -->
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Nom</mat-label>
+      <input matInput type="text" formControlName="nom" />
+      <mat-error *ngIf="contactForm.get('nom')?.invalid && contactForm.get('nom')?.touched">
+        Le nom est requis.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Email -->
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" />
+      <mat-error *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
+        Email invalide ou requis.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Message -->
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Message</mat-label>
+      <textarea matInput rows="5" formControlName="message"></textarea>
+      <mat-error *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched">
+        Le message est requis.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Bouton -->
+    <button mat-raised-button color="primary" type="submit" [disabled]="contactForm.invalid">
+      Envoyer
+    </button>
+  </form>
+</section>

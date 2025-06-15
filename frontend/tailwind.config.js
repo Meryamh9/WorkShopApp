@@ -5,11 +5,16 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    extend: {
-      fontFamily: {
-        sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
-      },
-    },
+extend: {
+  keyframes: {
+    scroll: {
+      '0%': { transform: 'translateX(0%)' },
+      '100%': { transform: 'translateX(-50%)' } // car on duplique les cartes
+    }
   },
-  plugins: [],
+  animation: {
+    scroll: 'scroll 20s linear infinite'
+  }
 }
+
+  }}
