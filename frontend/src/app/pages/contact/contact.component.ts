@@ -5,10 +5,14 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ContactService } from '../../core/services/contact.service';
+import { ContactFormData } from '../../core/models/contact-form-data.model';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-contact',
-  imports: [ReactiveFormsModule, CommonModule, MatInputModule, MatFormFieldModule, MatButtonModule],
+  imports: [ReactiveFormsModule, CommonModule, MatInputModule, MatFormFieldModule, MatButtonModule, MatSnackBarModule, HttpClientModule],
   standalone: true,
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
@@ -16,19 +20,35 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 export class ContactComponent {
   contactForm;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private contactService: ContactService,
+    private snackBar: MatSnackBar,
+  ) {
     this.contactForm = this.fb.group({
       nom: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       message: ['', Validators.required],
     });
   }
-
   onSubmit() {
     if (this.contactForm.valid) {
-      console.log('Formulaire envoyé !', this.contactForm.value);
-      // ici tu peux envoyer les données à une API ou un service email
-      this.contactForm.reset();
+      this.contactService.envoyerMessage(this.contactForm.value as ContactFormData).subscribe({
+        next: () => {
+          this.showMessage('Message envoyé avec succès !');
+          this.contactForm.reset();
+        },
+        error: () => {
+          this.showMessage('Erreur lors de l’envoi. Merci de réessayer.');
+        },
+      });
     }
+  }
+
+  showMessage(msg: string) {
+    this.snackBar.open(msg, 'Fermer', {
+      duration: 3000,
+      panelClass: ['bg-[#1a4732]', 'text-white'],
+    });
   }
 }
