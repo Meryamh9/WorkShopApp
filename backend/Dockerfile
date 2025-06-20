@@ -1,18 +1,20 @@
-# backend/Dockerfile
-FROM node:22
+# Define node version
+FROM node:22-alpine
 
-# Créer le répertoire de l'app
-WORKDIR /app
+# Define container directory
+WORKDIR /usr/src/app
 
-# Copier les fichiers package.json + lock et installer
+# Copy package*.json for npm install
 COPY package*.json ./
-RUN npm install
 
-# Copier le reste de l'app
+# Run npm clean install, prod dependencies only
+RUN npm ci --only=production
+
+# Copy all files
 COPY . .
 
-# Exposer le port
+# Expose port 3000 for server
 EXPOSE 3000
 
-# Lancer le serveur
-CMD ["node", "server.js"]
+# Run npm start
+CMD ["npm", "start"]
