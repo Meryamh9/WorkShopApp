@@ -98,8 +98,7 @@
               }
             ],
             "styles": [
-              "src/styles.scss",
-              "src/styles/custom-theme.scss"
+              "src/styles.scss"
             ],
             "scripts": []
           }

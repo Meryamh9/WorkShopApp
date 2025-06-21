@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ContactComponent } from './contact.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('ContactComponent', () => {
   let component: ContactComponent;
@@ -8,7 +9,7 @@ describe('ContactComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ContactComponent]
+      imports: [ContactComponent, ReactiveFormsModule]
     })
     .compileComponents();
 
@@ -17,7 +18,20 @@ describe('ContactComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the contact component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have invalid form when empty', () => {
+    expect(component.contactForm.valid).toBeFalsy();
+  });
+
+  it('should have valid form when filled', () => {
+    component.contactForm.setValue({
+      nom: 'Test',
+      email: 'test@example.com',
+      message: 'Hello'
+    });
+    expect(component.contactForm.valid).toBeTruthy();
   });
 });
