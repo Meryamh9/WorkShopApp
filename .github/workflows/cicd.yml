@@ -1,0 +1,77 @@
+# Definition du nom de la pipeline CI/CD
+name: Continous Integration & Continous Delivery
+
+# Definition du déclencheur de la pipeline
+on:
+  push:
+    branches:
+      - main
+
+# Definition des variables locales pour creer l'image
+env:
+  REGISTRY: ghcr.io
+
+# Definition des jobs regroupant l'ensemble des étapes CI/CD
+jobs:
+  CI-build-and-push-image:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - appName: backend
+            dockerfileLocation: backend/Dockerfile
+          - appName: frontend
+            dockerfileLocation: frontend/Dockerfile
+
+    # Définition des autorisations à accordées au GITHUB_TOKEN
+    permissions:
+      contents: read
+      packages: write
+
+    # Définition des étapes CI
+    steps:
+      # Etape 1 - Récupération du code source
+      - name: Etape 1 - Récupération du code source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Etape 2.1 - Récupération des métadonnées (tags, labels) et optimisation du build
+      - name: Etape 2.1 - Récupération des métadonnées (tags, labels)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository }}-${{ matrix.appName }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
+
+      # Etape 2.2 - action can be useful if you want to add emulation support with QEMU to be able to build against more platforms.
+      - name: Etape 2.2 - Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      # Etape 2.3 - action will create and boot a builder using by default the docker-container driver. This is not required but recommended using it to be able to build multi-platform images, export cache, etc.
+      - name: Etape 2.3 - Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Etape 3 - Authentification au niveau de Github Container Registry (GHCR)
+      - name: Log in to the GitHub Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Etape 4 - Build et push de l'image Docker
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{ matrix.appName }}
+          file: ${{ matrix.dockerfileLocation }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
