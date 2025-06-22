@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-
 import { ContactService } from './contact.service';
 
 describe('ContactService', () => {
@@ -15,14 +14,13 @@ describe('ContactService', () => {
     });
     service = TestBed.inject(ContactService);
     httpMock = TestBed.inject(HttpTestingController);
-
   });
 
   afterEach(() => {
     httpMock.verify();
   });
 
-it('should send a message via POST', () => {
+  it('should send a message via POST', () => {
     const mockData = {
       nom: 'Test',
       email: 'test@example.com',
@@ -39,7 +37,6 @@ it('should send a message via POST', () => {
 
     req.flush({ message: 'Message sent successfully' });
   });
-  
 
   it('should be created', () => {
     expect(service).toBeTruthy();
