@@ -23,4 +23,8 @@ import { ContactService } from '../../core/services/contact.service';
 })
 export class HomeComponent {
   constructor(private contactService: ContactService) {}
+
+  scrollToSection(id: string) {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  }
 }
