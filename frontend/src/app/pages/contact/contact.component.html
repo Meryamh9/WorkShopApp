@@ -8,8 +8,8 @@
   <form
     [formGroup]="contactForm"
     (ngSubmit)="onSubmit()"
-    class="max-w-2xl mx-auto text-left space-y-6 bg-gray-50 rounded-xl shadow-lg p-8 animate-fadeInUp"
-    style="animation-delay: 0.3s; animation-fill-mode: forwards"
+    class="max-w-2xl mx-auto text-left space-y-6 rounded-xl shadow-lg p-8 animate-fadeInUp"
+    style="background-color: #f4f4f7; animation-delay: 0.3s; animation-fill-mode: forwards"
   >
     <!-- Nom -->
     <mat-form-field appearance="fill" class="w-full">
@@ -41,10 +41,13 @@
     <!-- Bouton -->
     <div class="text-center">
       <button
-        color="primary"
         type="submit"
         [disabled]="contactForm.invalid"
-        class="bg-[#275d3c] text-white px-6 py-3 rounded font-semibold hover:bg-[#14532d] hover:scale-105 transition-transform duration-300"
+        [ngClass]="{
+          'bg-[#275d3c] hover:bg-[#14532d]': contactForm.valid,
+          'bg-gray-400 cursor-not-allowed': contactForm.invalid,
+        }"
+        class="text-white px-6 py-3 rounded font-semibold transition-transform duration-300"
       >
         Envoyer
       </button>
