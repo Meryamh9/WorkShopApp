@@ -1,0 +1,6 @@
+{
+  "projects": {},
+  "buildCommand": "cd frontend && npm install && ng build --configuration production",
+  "outputDirectory": "frontend/dist/app",
+  "ignoreCommand": "cd backend && echo Ignoring backend"
+}
