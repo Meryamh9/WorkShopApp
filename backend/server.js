@@ -67,3 +67,5 @@ app.post("/api/contact", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Backend opérationnel sur http://localhost:${PORT}`);
 });
+
+module.exports = app;
