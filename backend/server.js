@@ -5,19 +5,24 @@ const axios = require("axios");
 require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000; 
 
-app.use(
-  cors({
-    origin: "*",
-    methods: ["GET", "POST", "OPTIONS"],
-    allowedHeaders: ["Content-Type"],
-  })
-);
+// CORS complet
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type']
+}));
 
 app.use(express.json());
 
-//Route d'envoi de message
+// Logger
+app.use((req, res, next) => {
+  console.log(`[${req.method}] ${req.url}`);
+  next();
+});
+
+// Route de contact
 app.post("/api/contact", async (req, res) => {
   const { nom, email, message } = req.body;
 
@@ -25,10 +30,10 @@ app.post("/api/contact", async (req, res) => {
     return res.status(400).json({ message: "Champs obligatoires manquants." });
   }
 
-  //Enregistrement Google Sheets via SheetDB
   try {
     console.log("Données reçues :", nom, email, message);
 
+    // Google Sheets
     const sheetdbURL = "https://sheetdb.io/api/v1/i8mq9v6y09lu0";
     await axios.post(sheetdbURL, {
       data: {
@@ -38,13 +43,8 @@ app.post("/api/contact", async (req, res) => {
         date: new Date().toISOString(),
       },
     });
-    console.log("Données enregistrées dans Google Sheets !");
-  } catch (err) {
-    console.error("Erreur Google Sheets :", err);
-  }
 
-  //Configuration et envoi d'email
-  try {
+    // Email
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -64,14 +64,13 @@ app.post("/api/contact", async (req, res) => {
     await transporter.sendMail(mailOptions);
     console.log("Email envoyé !");
     res.status(200).json({ message: "Message envoyé avec succès !" });
+
   } catch (error) {
-    console.error("Erreur email :", error);
-    res.status(500).json({ message: "Erreur lors de l'envoi du message." });
+    console.error("Erreur :", error);
+    res.status(500).json({ message: "Erreur serveur." });
   }
 });
 
 app.listen(PORT, () => {
-  console.log(`Backend opérationnel sur http://localhost:${PORT}`);
+  console.log(`Serveur démarré sur le port ${PORT}`);
 });
-
-module.exports = app;
