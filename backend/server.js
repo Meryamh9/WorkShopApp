@@ -5,9 +5,16 @@ const axios = require("axios");
 require("dotenv").config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
+
 app.use(express.json());
 
 //Route d'envoi de message
@@ -57,7 +64,6 @@ app.post("/api/contact", async (req, res) => {
     await transporter.sendMail(mailOptions);
     console.log("Email envoyé !");
     res.status(200).json({ message: "Message envoyé avec succès !" });
-
   } catch (error) {
     console.error("Erreur email :", error);
     res.status(500).json({ message: "Erreur lors de l'envoi du message." });
