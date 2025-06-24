@@ -31,7 +31,7 @@ describe('ContactService', () => {
       expect(response).toEqual({ message: 'Message sent successfully' });
     });
 
-    const req = httpMock.expectOne('/contact');
+    const req = httpMock.expectOne('http://localhost:3000/api/contact');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(mockData);
 
