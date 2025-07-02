@@ -5,14 +5,16 @@ const axios = require("axios");
 require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT || 3000; 
+const PORT = process.env.PORT || 3000;
 
 // CORS complet
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type']
-}));
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
 
 app.use(express.json());
 
@@ -64,11 +66,22 @@ app.post("/api/contact", async (req, res) => {
     await transporter.sendMail(mailOptions);
     console.log("Email envoyé !");
     res.status(200).json({ message: "Message envoyé avec succès !" });
-
   } catch (error) {
     console.error("Erreur :", error);
     res.status(500).json({ message: "Erreur serveur." });
   }
+});
+
+app.post("/api/admin/login", (req, res) => {
+  const { username, password } = req.body;
+
+  if (
+    username === process.env.ADMIN_USER &&
+    password === process.env.ADMIN_PASS
+  ) {
+    return res.status(200).json({ token: "fake-admin-token" });
+  }
+  return res.status(401).json({ message: "Identifiants invalides" });
 });
 
 app.listen(PORT, () => {

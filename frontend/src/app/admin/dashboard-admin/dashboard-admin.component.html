@@ -1,0 +1,21 @@
+<div class="dashboard-container">
+  <h2>Messages reçus</h2>
+  <table class="message-table">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Email</th>
+        <th>Message</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let msg of messages">
+        <td>{{ msg.nom }}</td>
+        <td>{{ msg.email }}</td>
+        <td>{{ msg.message }}</td>
+        <td>{{ msg.date | date: 'short' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
