@@ -18,15 +18,15 @@ describe('ContactComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create the contact component', () => {
+  it('Le composant est bien créé', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have invalid form when empty', () => {
+  it('Formulaire invalide s’il est vide', () => {
     expect(component.contactForm.valid).toBeFalsy();
   });
 
-  it('should have valid form when filled', () => {
+  it('Formulaire valide quand tous les champs sont remplis', () => {
     component.contactForm.setValue({
       nom: 'Test',
       email: 'test@example.com',
